@@ -1,0 +1,28 @@
+services:
+  dbstorage-influx:
+    user: x-arduino-expr:{{ with groupID "arduino" }}1000:{{ . }}{{ else }}1000{{ end }}
+    group_add:
+    - x-arduino-expr:{{ groupID "video" }}
+    - x-arduino-expr:{{ groupID "audio" }}
+    - x-arduino-expr:{{ groupID "render" }}
+    - x-arduino-expr:{{ groupID "dialout" }}
+    - x-arduino-expr:{{ groupID "arduino-router" }}
+    - x-arduino-expr:{{ groupID "fastrpc" }}
+    - x-arduino-expr:{{ groupID "dmaheap" }}
+    - x-arduino-expr:{{ groupID "gpiod" }}
+    labels:
+      cc.arduino.app: "true"
+      cc.arduino.app.path: ${APP_HOME}
+    environment:
+      APP_HOME: ${APP_HOME}
+      BIND_ADDRESS: 127.0.0.1
+      BOARD_NAME: unoq
+      CONFIGURED_CARRIERS: ${CONFIGURED_CARRIERS}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      HOST_DSP_INSTALLATION_PATH: ${HOST_DSP_INSTALLATION_PATH}
+      HOST_IP: ${HOST_IP}
+      INFLUXDB_ADMIN_TOKEN: ${INFLUXDB_ADMIN_TOKEN}
+      MODELS_PATH: ${MODELS_PATH}
+      VIDEO_DEVICE: ${VIDEO_DEVICE}
+      XDG_RUNTIME_DIR: ${XDG_RUNTIME_DIR}
